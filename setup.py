@@ -106,6 +106,7 @@ setup(
             'pagerduty = sentry_plugins.pagerduty',
             'pivotal = sentry_plugins.pivotal',
             'pushover = sentry_plugins.pushover',
+            'segment = sentry_plugins.segment',
             'slack = sentry_plugins.slack',
         ],
         'sentry.plugins': [
@@ -119,6 +120,7 @@ setup(
             'pagerduty = sentry_plugins.pagerduty.plugin:PagerDutyPlugin',
             'pivotal = sentry_plugins.pivotal.plugin:PivotalPlugin',
             'pushover = sentry_plugins.pushover.plugin:PushoverPlugin',
+            'segment = sentry_plugins.segment.plugin:SegmentPlugin',
             'slack = sentry_plugins.slack.plugin:SlackPlugin',
         ],
     },
