@@ -304,7 +304,7 @@ class SlackPlugin(CorePluginMixin, notify.NotificationPlugin):
             for group in groups:
                 if tag_value in group["tag_values"]:
                     payload['channel'] = group["channel"]
-                    http.safe_urlopen(webhook, method='POST', data=values)
+                    http.safe_urlopen(webhook, method='POST', data={'payload': json.dumps(payload)})
             return
         else:
             return http.safe_urlopen(webhook, method='POST', data=values)
