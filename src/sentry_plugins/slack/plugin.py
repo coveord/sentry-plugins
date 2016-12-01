@@ -17,7 +17,7 @@ LEVEL_TO_COLOR = {
     'info': '2788ce',
     'warning': 'f18500',
     'error': 'f43f20',
-    'fatal': 'd20f2a'
+    'fatal': 'd20f2a',
 }
 
 
@@ -37,7 +37,7 @@ class SlackPlugin(CorePluginMixin, notify.NotificationPlugin):
             'type': 'url',
             'placeholder': 'e.g. https://hooks.slack.com/services/000000000/000000000/00000000000000000',
             'required': True,
-            'help': 'Your custom Slack webhook URL.'
+            'help': 'Your custom Slack webhook URL.',
         }, {
             'name': 'username',
             'label': 'Bot Name',
@@ -45,7 +45,7 @@ class SlackPlugin(CorePluginMixin, notify.NotificationPlugin):
             'placeholder': 'e.g. Sentry',
             'default': 'Sentry',
             'required': False,
-            'help': 'The name used when publishing messages.'
+            'help': 'The name used when publishing messages.',
         }, {
             'name': 'icon_url',
             'label': 'Icon URL',
@@ -55,20 +55,20 @@ class SlackPlugin(CorePluginMixin, notify.NotificationPlugin):
                 'The url of the icon to appear beside your bot (32px png), '
                 'leave empty for none.<br />You may use '
                 'http://myovchev.github.io/sentry-slack/images/logo32.png'
-            )
+            ),
         }, {
             'name': 'channel',
             'label': 'Destination',
             'type': 'string',
             'placeholder': 'e.g. #engineering',
             'required': False,
-            'help': 'Optional #channel name or @user'
+            'help': 'Optional #channel name or @user',
         }, {
             'name': 'include_tags',
             'label': 'Include Tags',
             'type': 'bool',
             'required': False,
-            'help': 'Include tags with notifications'
+            'help': 'Include tags with notifications',
         }, {
             'name': 'included_tag_keys',
             'label': 'Included Tags',
@@ -76,74 +76,74 @@ class SlackPlugin(CorePluginMixin, notify.NotificationPlugin):
             'required': False,
             'help': (
                 'Only include these tags (comma separated list). '
-                'Leave empty to include all.'
-            )
+                'Leave empty to include all.',
+            ),
         }, {
             'name': 'excluded_tag_keys',
             'label': 'Excluded Tags',
             'type': 'string',
             'required': False,
-            'help': 'Exclude these tags (comma separated list).'
+            'help': 'Exclude these tags (comma separated list).',
         }, {
             'name': 'include_rules',
             'label': 'Include Rules',
             'type': 'bool',
             'required': False,
-            'help': 'Include triggering rules with notifications.'
+            'help': 'Include triggering rules with notifications.',
         }, {
             'name': 'sort_on_tag',
             'label': 'Sort on Tag',
             'type': 'bool',
             'required': False,
-            'help': 'Sort events into different channels or users'
+            'help': 'Sort events into different channels or users',
         }, {
             'name': 'send_to_root_too',
             'label': 'Send to Root too',
             'type': 'bool',
             'required': False,
-            'help': 'Always send the event to the main channel as well'
+            'help': 'Always send the event to the main channel as well',
         }, {
             'name': 'sort_on_tag_key',
             'label': 'Sort on Tag Key',
             'type': 'string',
             'required': False,
-            'help': 'Key name of the tag to sort on'
+            'help': 'Key name of the tag to sort on',
         }, {
             'name': 'group_1_tag_values',
             'label': 'Group 1 Tag Values',
             'type': 'string',
             'required': False,
-            'help': 'First group tag values {comma separated list}'
+            'help': 'First group tag values {comma separated list}',
         }, {
             'name': 'group_1_channel',
             'label': 'Group 1 Channel',
             'type': 'string',
             'required': False,
-            'help': 'First group #channel name or @user'
+            'help': 'First group #channel name or @user',
         }, {
             'name': 'group_2_tag_values',
             'label': 'Group 2 Tag Values',
             'type': 'string',
             'required': False,
-            'help': 'Second group tag values {comma separated list}'
+            'help': 'Second group tag values {comma separated list}',
         }, {
             'name': 'group_2_channel',
             'label': 'Group 2 Channel',
             'type': 'string',
             'required': False,
-            'help': 'Second group #channel name or @user'
+            'help': 'Second group #channel name or @user',
         }, {
             'name': 'group_3_tag_values',
             'label': 'Group 3 Tag Values',
             'type': 'string',
             'required': False,
-            'help': 'Third group tag values (comma separated list}'
+            'help': 'Third group tag values (comma separated list}',
         }, {
             'name': 'group_3_channel',
             'label': 'Group 3 Channel',
             'type': 'string',
             'required': False,
-            'help': 'Third group #channel name or @user'
+            'help': 'Third group #channel name or @user',
         }]
 
     def color_for_event(self, event):
@@ -212,13 +212,13 @@ class SlackPlugin(CorePluginMixin, notify.NotificationPlugin):
             fields.append({
                 'title': 'Culprit',
                 'value': culprit,
-                'short': False
+                'short': False,
             })
 
         fields.append({
             'title': 'Project',
             'value': project_name,
-            'short': True
+            'short': True,
         })
 
         if self.get_option('include_rules', project):
@@ -236,7 +236,7 @@ class SlackPlugin(CorePluginMixin, notify.NotificationPlugin):
                 fields.append({
                     'title': 'Triggered By',
                     'value': ', '.join('<%s | %s>' % r for r in rules),
-                    'short': False
+                    'short': False,
                 })
 
         if self.get_option('include_tags', project):
@@ -252,7 +252,7 @@ class SlackPlugin(CorePluginMixin, notify.NotificationPlugin):
                 fields.append({
                     'title': tag_key.encode('utf-8'),
                     'value': tag_value.encode('utf-8'),
-                    'short': True
+                    'short': True,
                 })
 
         payload = {
@@ -262,7 +262,7 @@ class SlackPlugin(CorePluginMixin, notify.NotificationPlugin):
                 'title': title,
                 'title_link': group.get_absolute_url(),
                 'color': self.color_for_event(event),
-                'fields': fields
+                'fields': fields,
             }]
         }
 
@@ -282,7 +282,7 @@ class SlackPlugin(CorePluginMixin, notify.NotificationPlugin):
 
         if sort_on_tag:
             if send_to_root_too:
-                http.safe_urlopen(webhook, method='POST', data={'payload': json.dumps(payload)})
+                http.safe_urlopen(webhook, method='POST', data=values)
 
             sort_on_tag_key = (self.get_option('sort_on_tag_key', project) or 'application_name').strip()
             groups = [
@@ -304,7 +304,7 @@ class SlackPlugin(CorePluginMixin, notify.NotificationPlugin):
             for group in groups:
                 if tag_value in group["tag_values"]:
                     payload['channel'] = group["channel"]
-                    http.safe_urlopen(webhook, method='POST', data={'payload': json.dumps(payload)})
+                    http.safe_urlopen(webhook, method='POST', data=values)
             return
         else:
-            return http.safe_urlopen(webhook, method='POST', data={'payload': json.dumps(payload)})
+            return http.safe_urlopen(webhook, method='POST', data=values)
